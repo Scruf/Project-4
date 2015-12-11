@@ -6,7 +6,7 @@ import java.util.*;
 import javax.swing.*;
 
 /**
- * Created by ekozi on 12/10/2015.
+ * Created by Egor Koziski on 12/10/2015.
  */
 public class SolicitorChess extends JFrame implements Observer {
     public SolitorChessModel model;
@@ -24,7 +24,7 @@ public class SolicitorChess extends JFrame implements Observer {
         model.reset();
 
     }
-    public void init(){
+    public void init() {
 
         moveCounter = new JTextArea("Move  #" + model.getCounter());
         message = new JTextArea("");
@@ -68,9 +68,9 @@ public class SolicitorChess extends JFrame implements Observer {
         bottom.setVisible(true);
         JFrame mainWindow = new JFrame("Solitare Chess Egor Kozitski ek5442");
         mainWindow.setLayout(new BorderLayout());
-        mainWindow.add(topPanel,BorderLayout.NORTH);
+        mainWindow.add(topPanel, BorderLayout.NORTH);
         mainWindow.add(panel, BorderLayout.CENTER);
-        mainWindow.add(bottom,BorderLayout.SOUTH);
+        mainWindow.add(bottom, BorderLayout.SOUTH);
         mainWindow.setSize(model.getX() * 150, model.getY() * 150);
         mainWindow.setVisible(true);
         mainWindow.setLocationRelativeTo(null);
@@ -79,36 +79,34 @@ public class SolicitorChess extends JFrame implements Observer {
 
     @Override
     public void update(Observable obs, Object o) {
-        HashMap<Coordinates, Piece> board = model.getBoard();
-        for (ButtonPiece[] i : this.buttons) {
-            for (ButtonPiece btn : i)
+        HashMap < Coordinates, Piece > board = model.getBoard();
+        for (ButtonPiece[] i: this.buttons) {
+            for (ButtonPiece btn: i)
                 btn.setText("");
         }
-        for (Coordinates cord : board.keySet()) {
+        for (Coordinates cord: board.keySet()) {
             buttons[cord.getyCoord()][cord.getxCoord()].setText(board.get(cord).getName());
         }
         moveCounter.setText("Moves #" + model.getCounter());
-        if (board.size() == 1)
-            message.setText("Winner");
-        if(model.resetSize()==0)
-            colorFiller();
+        if (board.size() == 1) message.setText("Winner");
+        if (model.resetSize() == 0) colorFiller();
 
     }
     public void colorFiller() {
         int i = 0;
         int j = 0;
-        for (ButtonPiece[] row : this.buttons) {
-            for (ButtonPiece button : row) {
-                if ((i+j) % 2 == 0) {
+        for (ButtonPiece[] row: this.buttons) {
+            for (ButtonPiece button: row) {
+                if ((i + j) % 2 == 0) {
                     //Filling board with white squares
-                      button.setBackground(Color.WHITE);
+                    button.setBackground(Color.WHITE);
 
-                    j +=1;
-                } else if ( (i+j) % 2 == 1){
+                    j += 1;
+                } else if ((i + j) % 2 == 1) {
                     //filling with blue
-                   button.setBackground(Color.BLUE);
+                    button.setBackground(Color.BLUE);
 
-                    j +=1;
+                    j += 1;
                 }
             }
             i += 1;
@@ -117,7 +115,11 @@ public class SolicitorChess extends JFrame implements Observer {
     }
 
     public static void main(String[] args) {
-        SolitorChessModel sol = new SolitorChessModel(new File("file.txt"));
+        if (args.length != 1) {
+            JOptionPane.showMessageDialog(null, "Invalid number of arguments");
+            System.exit(0);
+        }
+        SolitorChessModel sol = new SolitorChessModel(new File(args[0]));
         new SolicitorChess(sol);
     }
 
@@ -135,28 +137,21 @@ public class SolicitorChess extends JFrame implements Observer {
             if (ev.getActionCommand().equals("Reset")) {
                 model.reset();
                 message.setText("");
-            }
-            else if (button instanceof ButtonPiece) {
+            } else if (button instanceof ButtonPiece) {
                 if (model.addPieces(((ButtonPiece) button).getCord())) {
                     chess.colorFiller();
                     button.setBackground(Color.DARK_GRAY);
                 }
             } else if (button.getText().equals("Hint")) {
-                if (message.getText().equals("Winner"))
+                if (message.getText().equals("Winner")) {
                     message.setText(" ");
-                else if(!model.nextBestMove(model))
-                    message.setText("Invalid move");
+                    System.exit(0);
+                } else if (!model.nextBestMove(model)) message.setText("Invalid move");
 
 
             } else if (ev.getActionCommand().equals("How to")) {
                 JOptionPane.showMessageDialog(chess,
-                        "Based on normal chess rules, each chess piece has their own movements."
-                                + "To move a chess piece, click on the grid box of the chess piece, and \n"
-                                + "click to another destination. To capture, select the chess piece you want"
-                                + "to attack with and click on the chess piece you wish to capture. If you \n"
-                                + "are unsure where to move, the 'Next Best Move' will generate the best move."
-                                + "To win the game, you must have one chess piece standing."
-                        , "How to play", JOptionPane.INFORMATION_MESSAGE);
+                        "Based on normal chess rules, each chess piece has their own movements." + "To move a chess piece, click on the grid box of the chess piece, and \n" + "click to another destination. To capture, select the chess piece you want", "How to play", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 

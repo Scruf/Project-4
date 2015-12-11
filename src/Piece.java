@@ -1,5 +1,5 @@
 /**
- * Created by ekozi on 12/10/2015.
+ * Created by Egor Kozitski on 12/10/2015.
  */
 import java.util.*;
 public abstract  class Piece {

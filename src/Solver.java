@@ -1,18 +1,21 @@
 import java.util.*;
 
+/*
+ *
+ * @author Egor Kozitski
+ * */
+public class Solver < E > {
 
-public class Solver<E> {
+
+    public ArrayList < E > solver(Puzzle < E > puzzle) {
 
 
-    public  ArrayList<E> solver (Puzzle<E> puzzle){
+        ArrayList < ArrayList < E >> queue = new ArrayList < ArrayList < E >> ();
 
+        ArrayList < E > current = new ArrayList < E > ();
 
-        ArrayList<ArrayList<E>> queue = new ArrayList<ArrayList<E>>();
-
-        ArrayList<E> current = new ArrayList<E>();
-
-        HashSet<E> visited = new HashSet<E>();
-        ArrayList<E> solution = null;
+        HashSet < E > visited = new HashSet < E > ();
+        ArrayList < E > solution = null;
 
 
         current.add(puzzle.getStart());
@@ -27,27 +30,27 @@ public class Solver<E> {
             found = true;
         }
 
-        while(!queue.isEmpty() && found!=true) {
+        while (!queue.isEmpty() && found != true) {
 
 
             solution = queue.remove(0);
 
-            ArrayList<E> neighbors = puzzle.getNeighbors(solution.get(solution.size() - 1));
-            for (E neighbor : neighbors){
+            ArrayList < E > neighbors = puzzle.getNeighbors(solution.get(solution.size() - 1));
+            for (E neighbor: neighbors) {
 
 
                 if (!visited.contains(neighbors)) {
-                    ArrayList<E> next = new ArrayList<E>();
-                    for (E i : solution) {
+                    ArrayList < E > next = new ArrayList < E > ();
+                    for (E i: solution) {
                         next.add(i);
                     }
                     next.add(neighbor);
 
-                    if (puzzle.getGoal(next.get(next.size() -1))) {
+                    if (puzzle.getGoal(next.get(next.size() - 1))) {
                         solution = next;
                         found = true;
                         break;
-                    }else {
+                    } else {
 
                         queue.add(next);
                     }
@@ -60,8 +63,7 @@ public class Solver<E> {
         if (found) {
             //this.solution = current;
             return solution;
-        }
-        else {
+        } else {
             //System.out.println("There is not solution");
             return null;
         }
