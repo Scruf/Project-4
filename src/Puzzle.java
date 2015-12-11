@@ -9,5 +9,5 @@ public interface Puzzle<E> {
     //For an incoming config, generate and return all direct neighbors to this config.
     public ArrayList<E> getNeighbors(E config);
     // Get the starting config for this puzzle.
-    public E getGoal();
+    public boolean getGoal(E config);
 }
