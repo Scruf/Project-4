@@ -1,0 +1,24 @@
+commit 1c938e22465028e7f01b31d019797759f06611e1
+Author: Egor <egor.kozitski@mail.citytech.cuny.edu>
+Date:   Fri Dec 11 01:18:50 2015 -0500
+
+    Final Commit
+
+commit 8aea7c73601fbbfa53d751b8185cc6f1f3f376d5
+Author: Egor <egor.kozitski@mail.citytech.cuny.edu>
+Date:   Fri Dec 11 00:35:30 2015 -0500
+
+    Finishing design and Hint
+
+commit d289495db2fa9f2d50f38d1abb8bbb608f8cc01b
+Author: Egor <egor.kozitski@mail.citytech.cuny.edu>
+Date:   Thu Dec 10 15:39:44 2015 -0500
+
+    Coordinates to hold position is implemented
+    Piece model is in development
+
+commit 2bf7f7e0a053d2f8115ec0d3de353d4a0332889a
+Author: Egor <egor.kozitski@mail.citytech.cuny.edu>
+Date:   Thu Dec 10 15:19:46 2015 -0500
+
+    Initial commit
